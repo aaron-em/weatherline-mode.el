@@ -100,9 +100,9 @@ page for your location. (It may misbehave the first time you do
 this; there seems to be some sort of cookie magic involved
 there. Nothing I can see to do about that; sorry.)
 
-[1] https://github.com/fcambus/ansiweather/blob/master/ansiweather
-[2] https://news.ycombinator.com/item?id=6587660
-[3] http://nyan-mode.buildsomethingamazing.com/
+[1]: https://github.com/fcambus/ansiweather/blob/master/ansiweather
+[2]: https://news.ycombinator.com/item?id=6587660
+[3]: http://nyan-mode.buildsomethingamazing.com/
 
 Bugs/TODO
 ---------
@@ -142,4 +142,4 @@ happy to hear my humble efforts have achieved wide enough interest to
 result in a fork hosted somewhere else. I'd be obliged if you'd drop
 me a line to let me know about it.
 
-[4] https://github.com/aaron-em/weatherline.el
+[4]: https://github.com/aaron-em/weatherline.el
