@@ -93,8 +93,8 @@ RET weatherline RET to see what's available in detail.
 
 This mode binds no keys; its only map is the one attached to the
 mode line display. I suppose you could bind something to
-'weatherline-fetch-update' if you really want to; <mouse-2> on the
-mode line display is already bound that way. <mouse-3> on the mode
+'weatherline-fetch-update' if you really want to; mouse-2 on the
+mode line display is already bound that way. mouse-3 on the mode
 line display will open your default browser on the OpenWeatherMap
 page for your location. (It may misbehave the first time you do
 this; there seems to be some sort of cookie magic involved
