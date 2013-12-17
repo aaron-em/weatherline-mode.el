@@ -3,7 +3,7 @@
 ;; Copyright (C) 2013 Aaron Miller. All rights reversed.
 ;; Share and Enjoy!
 
-;; Last revision: Monday, November 4, 2013, ca. 12:30pm.
+;; Last revision: Monday, December 17, 2013, ca. 00:00.
 
 ;; Author: Aaron Miller <me@aaron-miller.me>
 
@@ -116,13 +116,13 @@
 ;; This is the second Emacs minor mode I've written from scratch for
 ;; public release. (The first is not yet publicly available, but once
 ;; released it will be under the name "dedicate-windows-manually.el"
-;; in the same place you found this.) I've been using it for a week
-;; and a half or so without problems, which means there are certainly
-;; several major bugs in it which I have yet to find. Should you
-;; encounter one or more of them, I'd be delighted to receive a pull
-;; request with a fix, or failing that, at least an email which takes
-;; time out from slandering my ancestry, upbringing, and personal
-;; habits to give some details on how to reproduce the bug.
+;; in the same place you found this.) I've been using it for a couple
+;; of months without problems, which means there are probably several
+;; major bugs in it which I have yet to find. Should you encounter one
+;; or more of them, I'd be delighted to receive a pull request with a
+;; fix, or failing that, at least an email which takes time out from
+;; slandering my ancestry, upbringing, and personal habits to give
+;; some details on how to reproduce the bug.
 
 ;; The mode line display is inserted immediately after the buffer
 ;; identification. Depending on how your mode line is set up, this may
@@ -387,7 +387,7 @@ you'll need to set this by hand too.")
           "mouse-3: View in your default browser"))
 
 (defvar weatherline-mode-line-entry
-  '(:eval (and weatherline-mode
+  '(:eval (and (boundp weatherline-mode) weatherline-mode
                (propertize
                 (concat " " (replace-regexp-in-string
                              "%" "%%"
@@ -495,7 +495,9 @@ OpenWeatherMap API data."
     (setq weatherline-lighter-string
           (concat 
            (and weatherline-lighter-include-sky
-                (concat sky-cond-sym " "))
+                (concat (if (listp sky-cond-sym)
+                            (car sky-cond-sym)
+                          sky-cond-sym) " "))
            (and weatherline-lighter-include-temperature
                 (concat (number-to-string
                          (floor (cdr (assoc 'temperature conditions)))) weatherline-temperature-indicator " "))
