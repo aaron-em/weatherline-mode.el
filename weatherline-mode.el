@@ -386,16 +386,33 @@ you'll need to set this by hand too.")
           "mouse-2: Fetch update now" "\n"
           "mouse-3: View in your default browser"))
 
+;; (defvar weatherline-mode-line-entry
+;;   '(:eval (and (boundp weatherline-mode) weatherline-mode
+;;                (propertize
+;;                 (concat " " (replace-regexp-in-string
+;;                              "%" "%%"
+;;                              weatherline-lighter-string))
+;;                 'face 'weatherline-mode-line-face
+;;                 'mouse-face 'mode-line-highlight
+;;                 'help-echo 'weatherline-mode-line-echo
+;;                 'keymap weatherline-mode-line-keymap)))
+;;   "The mode line entry for weatherline-mode.")
+
+(defun weatherline-generate-mode-line-entry ()
+  "Generate a propertized string suitable for inclusion in the
+mode line."
+  (and (boundp weatherline-mode) weatherline-mode
+       (propertize
+        (concat " " (replace-regexp-in-string
+                     "%" "%%"
+                     weatherline-lighter-string))
+        'face 'weatherline-mode-line-face
+        'mouse-face 'mode-line-highlight
+        'help-echo 'weatherline-mode-line-echo
+        'keymap weatherline-mode-line-keymap)))
+
 (defvar weatherline-mode-line-entry
-  '(:eval (and (boundp weatherline-mode) weatherline-mode
-               (propertize
-                (concat " " (replace-regexp-in-string
-                             "%" "%%"
-                             weatherline-lighter-string))
-                'face 'weatherline-mode-line-face
-                'mouse-face 'mode-line-highlight
-                'help-echo 'weatherline-mode-line-echo
-                'keymap weatherline-mode-line-keymap)))
+  '(:eval (weatherline-generate-mode-line-entry))
   "The mode line entry for weatherline-mode.")
 
 (defun weatherline-browse-url ()
@@ -547,6 +564,12 @@ not already present."
               (setcdr prev-entry (cons weatherline-mode-line-entry
                                        (cdr prev-entry))))))
 
+(defun weatherline-remove-lighter ()
+  "Remove from the mode line any extant instances of the
+weatherline mode line entry."
+  (while (member weatherline-mode-line-entry mode-line-format)
+    (setf (car (member weatherline-mode-line-entry mode-line-format)) nil)))
+
 (define-minor-mode weatherline-mode
   "A minor mode to display the current weather in the mode line."
   :init-value nil
@@ -560,6 +583,7 @@ not already present."
         (weatherline-insert-lighter))
     (progn
       (weatherline-kill-timer)
+      (weatherline-remove-lighter)
       (setq weatherline-lighter-string ""))))
 
 (if weatherline-mode (weatherline-mode t))
